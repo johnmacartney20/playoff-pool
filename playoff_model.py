@@ -98,103 +98,108 @@ OT_RATE = 0.10
 # so_rate   – fraction of games the team's goalie posts a shutout
 #
 TEAMS: dict[str, dict] = {
-    # ── EASTERN CONFERENCE (seeds in conference-standing order) ─────────────────
+    # ── EASTERN CONFERENCE ──────────────────────────────────────────────────────
+    # R1 matchups (confirmed): CAR(M1) vs OTT(WC2), TBL(A2) vs MTL(A3),
+    #                          BUF(A1) vs BOS(WC1), PIT(M2) vs PHI(M3)
+    # cup_prob values are implied-odds estimates normalised to sum = 1.00.
     "CAR": dict(
-        name="Carolina Hurricanes",  conf="E", seed=1,
-        cup_prob=0.10,
-        r1_win=0.62, r2_win=0.57, r3_win=0.52, r4_win=0.48,
+        name="Carolina Hurricanes",   conf="E", seed=1,
+        cup_prob=0.09,
+        r1_win=0.65, r2_win=0.58, r3_win=0.52, r4_win=0.48,
         gpg_for=3.10, so_rate=0.10,
     ),
-    "PIT": dict(
-        name="Pittsburgh Penguins",  conf="E", seed=2,
-        cup_prob=0.04,
-        r1_win=0.55, r2_win=0.50, r3_win=0.46, r4_win=0.42,
-        gpg_for=2.90, so_rate=0.07,
-    ),
-    "PHI": dict(
-        name="Philadelphia Flyers",  conf="E", seed=3,
-        cup_prob=0.03,
-        r1_win=0.52, r2_win=0.48, r3_win=0.44, r4_win=0.40,
-        gpg_for=2.95, so_rate=0.07,
-    ),
-    "BUF": dict(
-        name="Buffalo Sabres",       conf="E", seed=4,
-        cup_prob=0.04,
-        r1_win=0.52, r2_win=0.50, r3_win=0.46, r4_win=0.42,
-        gpg_for=3.10, so_rate=0.06,
-    ),
-    "MTL": dict(
-        name="Montreal Canadiens",   conf="E", seed=5,
-        cup_prob=0.02,
-        r1_win=0.45, r2_win=0.44, r3_win=0.40, r4_win=0.36,
-        gpg_for=2.85, so_rate=0.07,
-    ),
     "TBL": dict(
-        name="Tampa Bay Lightning",  conf="E", seed=6,
-        cup_prob=0.07,
-        r1_win=0.58, r2_win=0.53, r3_win=0.48, r4_win=0.44,
+        name="Tampa Bay Lightning",   conf="E", seed=2,
+        cup_prob=0.09,
+        r1_win=0.62, r2_win=0.57, r3_win=0.52, r4_win=0.48,
         gpg_for=3.25, so_rate=0.08,
     ),
-    "BOS": dict(
-        name="Boston Bruins",        conf="E", seed=7,
+    "BUF": dict(
+        name="Buffalo Sabres",        conf="E", seed=3,
         cup_prob=0.06,
-        r1_win=0.52, r2_win=0.50, r3_win=0.46, r4_win=0.42,
-        gpg_for=2.95, so_rate=0.08,
+        r1_win=0.54, r2_win=0.50, r3_win=0.46, r4_win=0.42,
+        gpg_for=3.20, so_rate=0.06,
+    ),
+    "MTL": dict(
+        name="Montreal Canadiens",    conf="E", seed=4,
+        cup_prob=0.04,
+        r1_win=0.40, r2_win=0.46, r3_win=0.42, r4_win=0.38,
+        gpg_for=2.95, so_rate=0.07,
     ),
     "OTT": dict(
-        name="Ottawa Senators",      conf="E", seed=8,
-        cup_prob=0.04,
-        r1_win=0.50, r2_win=0.48, r3_win=0.44, r4_win=0.40,
-        gpg_for=3.15, so_rate=0.07,
+        name="Ottawa Senators",       conf="E", seed=5,
+        cup_prob=0.03,
+        r1_win=0.33, r2_win=0.40, r3_win=0.37, r4_win=0.34,
+        gpg_for=3.00, so_rate=0.07,
     ),
-    # ── WESTERN CONFERENCE (seeds in conference-standing order) ─────────────────
+    "PHI": dict(
+        name="Philadelphia Flyers",   conf="E", seed=6,
+        cup_prob=0.05,
+        r1_win=0.50, r2_win=0.47, r3_win=0.43, r4_win=0.39,
+        gpg_for=2.95, so_rate=0.07,
+    ),
+    "BOS": dict(
+        name="Boston Bruins",         conf="E", seed=7,
+        cup_prob=0.07,
+        r1_win=0.48, r2_win=0.50, r3_win=0.46, r4_win=0.42,
+        gpg_for=3.10, so_rate=0.08,
+    ),
+    "PIT": dict(
+        name="Pittsburgh Penguins",   conf="E", seed=8,
+        cup_prob=0.02,
+        r1_win=0.50, r2_win=0.44, r3_win=0.40, r4_win=0.37,
+        gpg_for=2.90, so_rate=0.07,
+    ),
+    # ── WESTERN CONFERENCE ──────────────────────────────────────────────────────
+    # R1 matchups (confirmed): COL(C1) vs LAK(WC2), DAL(C2) vs MIN(C3),
+    #                          VGK(P1) vs UTA(WC1), EDM(P2) vs ANA(P3)
     "COL": dict(
-        name="Colorado Avalanche",   conf="W", seed=1,
-        cup_prob=0.16,
+        name="Colorado Avalanche",    conf="W", seed=1,
+        cup_prob=0.15,
         r1_win=0.68, r2_win=0.62, r3_win=0.56, r4_win=0.52,
         gpg_for=3.50, so_rate=0.05,
     ),
     "DAL": dict(
-        name="Dallas Stars",         conf="W", seed=2,
-        cup_prob=0.07,
-        r1_win=0.58, r2_win=0.53, r3_win=0.48, r4_win=0.44,
-        gpg_for=3.00, so_rate=0.09,
+        name="Dallas Stars",          conf="W", seed=2,
+        cup_prob=0.09,
+        r1_win=0.60, r2_win=0.55, r3_win=0.50, r4_win=0.46,
+        gpg_for=3.05, so_rate=0.09,
     ),
     "MIN": dict(
-        name="Minnesota Wild",       conf="W", seed=3,
+        name="Minnesota Wild",        conf="W", seed=3,
         cup_prob=0.05,
-        r1_win=0.55, r2_win=0.50, r3_win=0.46, r4_win=0.42,
-        gpg_for=3.05, so_rate=0.07,
+        r1_win=0.42, r2_win=0.47, r3_win=0.43, r4_win=0.39,
+        gpg_for=3.10, so_rate=0.07,
     ),
     "VGK": dict(
-        name="Vegas Golden Knights", conf="W", seed=4,
-        cup_prob=0.09,
-        r1_win=0.58, r2_win=0.53, r3_win=0.48, r4_win=0.44,
-        gpg_for=3.10, so_rate=0.09,
-    ),
-    "EDM": dict(
-        name="Edmonton Oilers",      conf="W", seed=5,
-        cup_prob=0.13,
-        r1_win=0.62, r2_win=0.57, r3_win=0.52, r4_win=0.48,
-        gpg_for=3.45, so_rate=0.06,
-    ),
-    "ANA": dict(
-        name="Anaheim Ducks",        conf="W", seed=6,
-        cup_prob=0.03,
-        r1_win=0.45, r2_win=0.44, r3_win=0.40, r4_win=0.36,
-        gpg_for=2.90, so_rate=0.07,
+        name="Vegas Golden Knights",  conf="W", seed=4,
+        cup_prob=0.08,
+        r1_win=0.58, r2_win=0.53, r3_win=0.49, r4_win=0.45,
+        gpg_for=3.05, so_rate=0.09,
     ),
     "UTA": dict(
-        name="Utah Hockey Club",     conf="W", seed=7,
-        cup_prob=0.03,
-        r1_win=0.48, r2_win=0.46, r3_win=0.42, r4_win=0.38,
-        gpg_for=2.95, so_rate=0.07,
+        name="Utah Mammoth",          conf="W", seed=5,
+        cup_prob=0.04,
+        r1_win=0.44, r2_win=0.45, r3_win=0.41, r4_win=0.37,
+        gpg_for=3.05, so_rate=0.08,
+    ),
+    "EDM": dict(
+        name="Edmonton Oilers",       conf="W", seed=6,
+        cup_prob=0.11,
+        r1_win=0.68, r2_win=0.58, r3_win=0.53, r4_win=0.49,
+        gpg_for=3.45, so_rate=0.06,
     ),
     "LAK": dict(
-        name="Los Angeles Kings",    conf="W", seed=8,
-        cup_prob=0.04,
-        r1_win=0.45, r2_win=0.44, r3_win=0.40, r4_win=0.36,
-        gpg_for=2.82, so_rate=0.10,
+        name="Los Angeles Kings",     conf="W", seed=7,
+        cup_prob=0.02,
+        r1_win=0.32, r2_win=0.42, r3_win=0.38, r4_win=0.35,
+        gpg_for=2.95, so_rate=0.10,
+    ),
+    "ANA": dict(
+        name="Anaheim Ducks",         conf="W", seed=8,
+        cup_prob=0.01,
+        r1_win=0.33, r2_win=0.39, r3_win=0.36, r4_win=0.33,
+        gpg_for=2.95, so_rate=0.07,
     ),
 }
 
@@ -286,254 +291,233 @@ TEAM_EGP: dict[str, dict] = {t: compute_team_egp(t) for t in TEAMS}
 #
 _RAW_PLAYERS: list[tuple] = [
 
-    # ── EDMONTON OILERS (EDM) ─────────────────────────────────────────────────
-    # Core unchanged; Yamamoto (AHL/scratched), Henrique (retired) and
-    # Barrie (contract expired) replaced by Jeff Skinner (signed UFA 2024).
-    ("Connor McDavid",        "EDM", "C",  1, "PP1", 0.40, 0.78, 0.55),
-    ("Leon Draisaitl",        "EDM", "C",  1, "PP1", 0.38, 0.62, 0.52),
-    ("Zach Hyman",            "EDM", "LW", 1, "PP1", 0.28, 0.26, 0.18),
-    ("Ryan Nugent-Hopkins",   "EDM", "C",  2, "PP2", 0.18, 0.30, 0.20),
-    ("Evan Bouchard",         "EDM", "D",  0, "PP1", 0.15, 0.42, 0.38),
-    ("Darnell Nurse",         "EDM", "D",  0, "PP2", 0.05, 0.20, 0.12),
-    ("Mattias Ekholm",        "EDM", "D",  0, "-",   0.04, 0.18, 0.06),
-    ("Evander Kane",          "EDM", "LW", 2, "PP2", 0.22, 0.22, 0.15),
-    ("Jeff Skinner",          "EDM", "LW", 2, "PP2", 0.16, 0.18, 0.12),
-    ("Connor Brown",          "EDM", "RW", 2, "-",   0.12, 0.18, 0.05),
-    ("Ryan McLeod",           "EDM", "C",  3, "-",   0.10, 0.15, 0.04),
-    ("Philip Broberg",        "EDM", "D",  0, "PP2", 0.08, 0.22, 0.15),
-    ("Warren Foegele",        "EDM", "LW", 3, "-",   0.10, 0.12, 0.04),
-    ("Sam Carrick",           "EDM", "C",  4, "-",   0.05, 0.07, 0.02),
+    # ── EDMONTON OILERS (EDM) — W/P2, R1 vs ANA ──────────────────────────────
+    # Stats × 0.70 adjustment (60 % RS + 40 % career playoff blend).
+    # McDavid/Draisaitl unchanged. McLeod traded to BUF; Savoie/Roslovic step up.
+    ("Connor McDavid",        "EDM", "C",  1, "PP1", 0.415, 0.744, 0.449),
+    ("Leon Draisaitl",        "EDM", "C",  1, "PP1", 0.377, 0.669, 0.453),
+    ("Evan Bouchard",         "EDM", "D",  0, "PP1", 0.181, 0.614, 0.285),
+    ("Ryan Nugent-Hopkins",   "EDM", "C",  2, "PP1", 0.187, 0.355, 0.276),
+    ("Zach Hyman",            "EDM", "LW", 1, "PP2", 0.381, 0.246, 0.172),
+    ("Mattias Ekholm",        "EDM", "D",  0, "-",   0.052, 0.302, 0.026),
+    ("Vasily Podkolzin",      "EDM", "RW", 3, "PP2", 0.164, 0.156, 0.026),
+    ("Jack Roslovic",         "EDM", "C",  3, "-",   0.216, 0.154, 0.062),
+    ("Matt Savoie",           "EDM", "C",  3, "-",   0.130, 0.165, 0.052),
 
-    # ── COLORADO AVALANCHE (COL) ──────────────────────────────────────────────
-    # Rantanen traded to CAR (Jan 2025); Martin Necas arrives in return.
-    ("Nathan MacKinnon",      "COL", "C",  1, "PP1", 0.42, 0.72, 0.52),
-    ("Martin Necas",          "COL", "RW", 1, "PP1", 0.28, 0.42, 0.30),
-    ("Cale Makar",            "COL", "D",  0, "PP1", 0.18, 0.55, 0.42),
-    ("Gabriel Landeskog",     "COL", "LW", 1, "PP2", 0.22, 0.32, 0.18),
-    ("Valeri Nichushkin",     "COL", "RW", 2, "PP2", 0.25, 0.28, 0.15),
-    ("Devon Toews",           "COL", "D",  0, "PP1", 0.10, 0.32, 0.24),
-    ("Artturi Lehkonen",      "COL", "LW", 2, "-",   0.18, 0.20, 0.08),
-    ("Ross Colton",           "COL", "C",  3, "-",   0.12, 0.14, 0.06),
-    ("Samuel Girard",         "COL", "D",  0, "-",   0.06, 0.18, 0.08),
-    ("Evan Rodrigues",        "COL", "C",  2, "PP2", 0.14, 0.20, 0.12),
-    ("Bowen Byram",           "COL", "D",  0, "PP2", 0.10, 0.24, 0.18),
-    ("Miles Wood",            "COL", "LW", 3, "-",   0.08, 0.10, 0.03),
-    ("Jonathan Drouin",       "COL", "LW", 2, "PP2", 0.14, 0.24, 0.16),
+    # ── COLORADO AVALANCHE (COL) — W/C1, R1 vs LAK ───────────────────────────
+    # Rantanen traded COL→CAR→DAL; Necas arrived from CAR.
+    # Brock Nelson (from NYI) & Brent Burns (from CAR) bolster the roster.
+    ("Nathan MacKinnon",      "COL", "C",  1, "PP1", 0.464, 0.648, 0.263),
+    ("Martin Necas",          "COL", "RW", 1, "PP1", 0.341, 0.557, 0.215),
+    ("Cale Makar",            "COL", "D",  0, "PP1", 0.189, 0.549, 0.274),
+    ("Brock Nelson",          "COL", "C",  2, "PP1", 0.289, 0.280, 0.158),
+    ("Gabriel Landeskog",     "COL", "LW", 2, "PP2", 0.163, 0.245, 0.058),
+    ("Valeri Nichushkin",     "COL", "RW", 2, "PP2", 0.167, 0.296, 0.039),
+    ("Artturi Lehkonen",      "COL", "LW", 2, "-",   0.213, 0.274, 0.020),
+    ("Nazem Kadri",           "COL", "C",  3, "PP2", 0.145, 0.309, 0.173),
+    ("Brent Burns",           "COL", "D",  0, "PP2", 0.104, 0.190, 0.009),
+    ("Sam Malinski",          "COL", "D",  0, "PP2", 0.069, 0.277, 0.009),
+    ("Parker Kelly",          "COL", "LW", 4, "-",   0.173, 0.121, 0.000),
+    ("Josh Manson",           "COL", "D",  0, "-",   0.044, 0.230, 0.000),
 
-    # ── FLORIDA PANTHERS (FLA) ────────────────────────────────────────────────
-    ("Aleksander Barkov",     "FLA", "C",  1, "PP1", 0.28, 0.48, 0.30),
-    ("Matthew Tkachuk",       "FLA", "LW", 1, "PP1", 0.28, 0.52, 0.35),
-    ("Sam Reinhart",          "FLA", "RW", 1, "PP1", 0.35, 0.45, 0.32),
-    ("Carter Verhaeghe",      "FLA", "LW", 2, "PP2", 0.25, 0.28, 0.15),
-    ("Gustav Forsling",       "FLA", "D",  0, "PP1", 0.08, 0.30, 0.22),
-    ("Sam Bennett",           "FLA", "C",  2, "PP2", 0.22, 0.26, 0.14),
-    ("Aaron Ekblad",          "FLA", "D",  0, "PP2", 0.08, 0.26, 0.16),
-    ("Brandon Montour",       "FLA", "D",  0, "PP1", 0.10, 0.28, 0.20),
-    ("Anton Lundell",         "FLA", "C",  2, "-",   0.16, 0.22, 0.08),
-    ("Eetu Luostarinen",      "FLA", "C",  3, "-",   0.10, 0.14, 0.06),
-    ("Nick Cousins",          "FLA", "C",  3, "-",   0.08, 0.10, 0.04),
-    ("Ryan Lomberg",          "FLA", "LW", 4, "-",   0.06, 0.06, 0.02),
+    # ── TAMPA BAY LIGHTNING (TBL) — E/A2, R1 vs MTL ──────────────────────────
+    # Stamkos (UFA, NSH); Sergachev traded to UTA.
+    # Guentzel acquired at 2024 TDL; Raddysh now anchors the PP blue line.
+    ("Nikita Kucherov",       "TBL", "RW", 1, "PP1", 0.405, 0.792, 0.341),
+    ("Jake Guentzel",         "TBL", "LW", 1, "PP1", 0.328, 0.432, 0.259),
+    ("Brandon Hagel",         "TBL", "LW", 2, "PP1", 0.355, 0.375, 0.118),
+    ("Brayden Point",         "TBL", "C",  1, "PP1", 0.200, 0.355, 0.123),
+    ("Darren Raddysh",        "TBL", "D",  0, "PP1", 0.211, 0.460, 0.249),
+    ("Anthony Cirelli",       "TBL", "C",  2, "-",   0.227, 0.286, 0.039),
+    ("Corey Perry",           "TBL", "RW", 3, "PP2", 0.165, 0.194, 0.127),
+    ("Gage Goncalves",        "TBL", "C",  3, "-",   0.104, 0.208, 0.019),
+    ("Oliver Bjorkstrand",    "TBL", "RW", 3, "PP2", 0.105, 0.175, 0.123),
 
-    # ── TAMPA BAY LIGHTNING (TBL) ─────────────────────────────────────────────
-    # Sergachev traded to Utah; Stamkos to NSH (UFA 2024).
-    ("Nikita Kucherov",       "TBL", "RW", 1, "PP1", 0.35, 0.72, 0.50),
-    ("Brayden Point",         "TBL", "C",  1, "PP1", 0.42, 0.48, 0.35),
-    ("Victor Hedman",         "TBL", "D",  0, "PP1", 0.10, 0.45, 0.32),
-    ("Jake Guentzel",         "TBL", "LW", 1, "PP1", 0.32, 0.35, 0.25),
-    ("Brandon Hagel",         "TBL", "LW", 2, "PP2", 0.20, 0.28, 0.15),
-    ("Anthony Cirelli",       "TBL", "C",  2, "-",   0.14, 0.20, 0.06),
-    ("Nicholas Paul",         "TBL", "LW", 2, "PP2", 0.12, 0.20, 0.10),
-    ("Tanner Jeannot",        "TBL", "LW", 3, "-",   0.10, 0.12, 0.04),
-    ("Erik Cernak",           "TBL", "D",  0, "-",   0.04, 0.12, 0.04),
-    ("Tyler Motte",           "TBL", "RW", 3, "-",   0.08, 0.08, 0.03),
-    ("Luke Glendening",       "TBL", "C",  4, "-",   0.06, 0.06, 0.02),
+    # ── VEGAS GOLDEN KNIGHTS (VGK) — W/P1, R1 vs UTA ────────────────────────
+    # Marner acquired (TOR trade); Dorofeyev emerged as a 30-goal scorer.
+    ("Jack Eichel",           "VGK", "C",  1, "PP1", 0.255, 0.596, 0.265),
+    ("Mitch Marner",          "VGK", "RW", 1, "PP1", 0.207, 0.484, 0.207),
+    ("Mark Stone",            "VGK", "RW", 1, "PP1", 0.327, 0.525, 0.315),
+    ("Pavel Dorofeyev",       "VGK", "LW", 2, "PP1", 0.316, 0.230, 0.256),
+    ("Ivan Barbashev",        "VGK", "LW", 2, "PP2", 0.196, 0.324, 0.051),
+    ("Tomas Hertl",           "VGK", "C",  2, "PP2", 0.205, 0.290, 0.214),
+    ("Rasmus Andersson",      "VGK", "D",  0, "PP2", 0.147, 0.259, 0.112),
+    ("Shea Theodore",         "VGK", "D",  0, "PP1", 0.100, 0.290, 0.050),
 
-    # ── VEGAS GOLDEN KNIGHTS (VGK) ────────────────────────────────────────────
-    # Marchessault signed NSH (UFA 2023); Reilly Smith departed.
-    # Tomas Hertl (8yr 2023) and Ivan Barbashev (5yr 2023) signed as UFAs.
-    ("Jack Eichel",           "VGK", "C",  1, "PP1", 0.30, 0.48, 0.38),
-    ("Mark Stone",            "VGK", "RW", 1, "PP1", 0.22, 0.38, 0.25),
-    ("Tomas Hertl",           "VGK", "C",  2, "PP1", 0.22, 0.32, 0.20),
-    ("Ivan Barbashev",        "VGK", "LW", 1, "PP2", 0.18, 0.25, 0.15),
-    ("William Karlsson",      "VGK", "C",  3, "PP2", 0.18, 0.25, 0.15),
-    ("Alex Pietrangelo",      "VGK", "D",  0, "PP1", 0.08, 0.28, 0.18),
-    ("Shea Theodore",         "VGK", "D",  0, "PP1", 0.10, 0.30, 0.22),
-    ("Chandler Stephenson",   "VGK", "C",  2, "PP2", 0.15, 0.26, 0.15),
-    ("Nicolas Roy",           "VGK", "C",  3, "-",   0.08, 0.12, 0.04),
-    ("Keegan Kolesar",        "VGK", "RW", 3, "-",   0.08, 0.08, 0.03),
-    ("Brett Howden",          "VGK", "C",  3, "-",   0.06, 0.10, 0.04),
-    ("William Carrier",       "VGK", "LW", 4, "-",   0.06, 0.06, 0.02),
+    # ── CAROLINA HURRICANES (CAR) — E/M1, R1 vs OTT ──────────────────────────
+    # Rantanen traded to DAL; Stankoven (DAL) + Ehlers (WPG) arrive in return.
+    # Gostisbehere runs the PP blue line; Nikishin/Miller add defensive depth.
+    ("Sebastian Aho",         "CAR", "C",  1, "PP1", 0.239, 0.469, 0.239),
+    ("Nikolaj Ehlers",        "CAR", "LW", 1, "PP1", 0.222, 0.384, 0.248),
+    ("Andrei Svechnikov",     "CAR", "RW", 2, "PP1", 0.275, 0.346, 0.257),
+    ("Seth Jarvis",           "CAR", "C",  2, "PP2", 0.315, 0.335, 0.207),
+    ("Jackson Blake",         "CAR", "RW", 3, "PP2", 0.190, 0.268, 0.104),
+    ("Logan Stankoven",       "CAR", "C",  3, "-",   0.181, 0.199, 0.078),
+    ("Shayne Gostisbehere",   "CAR", "D",  0, "PP1", 0.165, 0.471, 0.229),
+    ("Taylor Hall",           "CAR", "LW", 3, "-",   0.158, 0.263, 0.061),
+    ("Jordan Staal",          "CAR", "C",  4, "-",   0.187, 0.149, 0.037),
+    ("K'Andre Miller",        "CAR", "D",  0, "PP2", 0.078, 0.282, 0.029),
+    ("Alexander Nikishin",    "CAR", "D",  0, "PP2", 0.095, 0.190, 0.086),
+    ("Sean Walker",           "CAR", "D",  0, "-",   0.078, 0.190, 0.009),
 
-    # ── OTTAWA SENATORS (OTT) ─────────────────────────────────────────────────
-    # DeBrincat signed DET (UFA 2023); Giroux contract expired.
-    # Mathieu Joseph stays as energy top-6 winger.
-    ("Brady Tkachuk",         "OTT", "LW", 1, "PP1", 0.28, 0.38, 0.28),
-    ("Tim Stutzle",           "OTT", "C",  1, "PP1", 0.30, 0.48, 0.36),
-    ("Drake Batherson",       "OTT", "RW", 1, "PP1", 0.22, 0.38, 0.28),
-    ("Thomas Chabot",         "OTT", "D",  0, "PP1", 0.10, 0.38, 0.28),
-    ("Jakob Chychrun",        "OTT", "D",  0, "PP2", 0.10, 0.28, 0.20),
-    ("Josh Norris",           "OTT", "C",  2, "PP2", 0.22, 0.28, 0.18),
-    ("Mathieu Joseph",        "OTT", "RW", 2, "-",   0.14, 0.18, 0.06),
-    ("Dominik Kubalik",       "OTT", "RW", 3, "-",   0.14, 0.18, 0.08),
-    ("Shane Pinto",           "OTT", "C",  3, "-",   0.12, 0.16, 0.06),
-    ("Artem Zub",             "OTT", "D",  0, "-",   0.04, 0.14, 0.05),
-    ("Ridly Greig",           "OTT", "C",  3, "-",   0.10, 0.12, 0.05),
+    # ── DALLAS STARS (DAL) — W/C2, R1 vs MIN ─────────────────────────────────
+    # Rantanen acquired from CAR; Johnston & Robertson form a lethal 1-2 punch.
+    ("Jason Robertson",       "DAL", "LW", 1, "PP1", 0.384, 0.435, 0.350),
+    ("Wyatt Johnston",        "DAL", "C",  1, "PP1", 0.384, 0.350, 0.358),
+    ("Mikko Rantanen",        "DAL", "RW", 1, "PP1", 0.241, 0.601, 0.372),
+    ("Miro Heiskanen",        "DAL", "D",  0, "PP1", 0.082, 0.490, 0.255),
+    ("Matt Duchene",          "DAL", "C",  2, "PP1", 0.196, 0.356, 0.172),
+    ("Roope Hintz",           "DAL", "C",  2, "PP2", 0.198, 0.383, 0.251),
+    ("Mavrik Bourque",        "DAL", "C",  3, "PP2", 0.171, 0.179, 0.043),
+    ("Jamie Benn",            "DAL", "LW", 3, "-",   0.175, 0.245, 0.070),
+    ("Michael Bunting",       "DAL", "LW", 3, "-",   0.132, 0.180, 0.095),
+    ("Sam Steel",             "DAL", "C",  4, "-",   0.115, 0.201, 0.029),
+    ("Thomas Harley",         "DAL", "D",  0, "PP2", 0.060, 0.300, 0.070),
+    ("Esa Lindell",           "DAL", "D",  0, "-",   0.051, 0.222, 0.017),
+    ("Justin Hryckowian",     "DAL", "C",  4, "-",   0.121, 0.139, 0.043),
 
-    # ── CAROLINA HURRICANES (CAR) ─────────────────────────────────────────────
-    # Mikko Rantanen acquired from COL (Jan 2025 trade; Necas + picks to COL).
-    # Svechnikov slides to L2 alongside Jarvis.
-    ("Sebastian Aho",         "CAR", "C",  1, "PP1", 0.28, 0.38, 0.28),
-    ("Mikko Rantanen",        "CAR", "RW", 1, "PP1", 0.35, 0.55, 0.42),
-    ("Andrei Svechnikov",     "CAR", "LW", 2, "PP1", 0.32, 0.38, 0.22),
-    ("Seth Jarvis",           "CAR", "C",  2, "PP1", 0.26, 0.30, 0.20),
-    ("Jesperi Kotkaniemi",    "CAR", "C",  3, "-",   0.14, 0.20, 0.08),
-    ("Brady Skjei",           "CAR", "D",  0, "PP2", 0.08, 0.26, 0.18),
-    ("Jaccob Slavin",         "CAR", "D",  0, "-",   0.04, 0.16, 0.06),
-    ("Brent Burns",           "CAR", "D",  0, "PP1", 0.08, 0.24, 0.18),
-    ("Jesper Fast",           "CAR", "RW", 3, "-",   0.06, 0.08, 0.03),
-    ("Jordan Staal",          "CAR", "C",  3, "-",   0.06, 0.10, 0.04),
-    ("Dmitry Orlov",          "CAR", "D",  0, "PP2", 0.06, 0.18, 0.10),
-    ("Jordan Martinook",      "CAR", "LW", 3, "-",   0.06, 0.10, 0.03),
+    # ── LOS ANGELES KINGS (LAK) — W/WC2, R1 vs COL ───────────────────────────
+    # Panarin acquired from NYR; Clarke emerges as offensive D anchor.
+    ("Artemi Panarin",        "LAK", "LW", 1, "PP1", 0.255, 0.509, 0.209),
+    ("Adrian Kempe",          "LAK", "RW", 1, "PP1", 0.315, 0.324, 0.105),
+    ("Quinton Byfield",       "LAK", "C",  2, "PP1", 0.206, 0.224, 0.099),
+    ("Kevin Fiala",           "LAK", "LW", 2, "PP2", 0.225, 0.275, 0.213),
+    ("Alex Laferriere",       "LAK", "RW", 3, "-",   0.181, 0.190, 0.043),
+    ("Brandt Clarke",         "LAK", "D",  0, "PP1", 0.069, 0.276, 0.112),
+    ("Anze Kopitar",          "LAK", "C",  3, "-",   0.127, 0.276, 0.127),
+    ("Trevor Moore",          "LAK", "LW", 3, "-",   0.134, 0.185, 0.010),
 
-    # ── BOSTON BRUINS (BOS) ───────────────────────────────────────────────────
-    # DeBrusk signed LAK (UFA 2023). Elias Lindholm signed 8yr deal (UFA 2023).
-    # Marchand projections slightly reduced at age 38.
-    ("David Pastrnak",        "BOS", "RW", 1, "PP1", 0.42, 0.42, 0.35),
-    ("Elias Lindholm",        "BOS", "C",  1, "PP1", 0.22, 0.30, 0.20),
-    ("Brad Marchand",         "BOS", "LW", 1, "PP1", 0.18, 0.30, 0.22),
-    ("Pavel Zacha",           "BOS", "C",  2, "PP2", 0.18, 0.28, 0.18),
-    ("Charlie McAvoy",        "BOS", "D",  0, "PP1", 0.08, 0.32, 0.22),
-    ("Matt Grzelcyk",         "BOS", "D",  0, "PP2", 0.06, 0.20, 0.14),
-    ("Trent Frederic",        "BOS", "C",  3, "-",   0.10, 0.12, 0.04),
-    ("Danton Heinen",         "BOS", "LW", 3, "-",   0.08, 0.12, 0.05),
-    ("Morgan Geekie",         "BOS", "C",  3, "-",   0.08, 0.10, 0.04),
-    ("Brandon Carlo",         "BOS", "D",  0, "-",   0.03, 0.10, 0.03),
-    ("Connor Clifton",        "BOS", "D",  0, "-",   0.02, 0.08, 0.02),
+    # ── BOSTON BRUINS (BOS) — E/WC1, R1 vs BUF ───────────────────────────────
+    # Pastrnak leads; McAvoy anchors the blue line.
+    # Geekie had a breakout 39-goal season; Zacha is a reliable second-line C.
+    ("David Pastrnak",        "BOS", "RW", 1, "PP1", 0.264, 0.646, 0.300),
+    ("Charlie McAvoy",        "BOS", "D",  0, "PP1", 0.112, 0.508, 0.233),
+    ("Pavel Zacha",           "BOS", "C",  1, "PP1", 0.269, 0.314, 0.197),
+    ("Morgan Geekie",         "BOS", "C",  2, "PP2", 0.337, 0.251, 0.207),
+    ("Viktor Arvidsson",      "BOS", "LW", 2, "PP1", 0.254, 0.295, 0.091),
+    ("Elias Lindholm",        "BOS", "C",  2, "PP2", 0.172, 0.315, 0.203),
+    ("Casey Mittelstadt",     "BOS", "C",  3, "PP2", 0.148, 0.266, 0.069),
+    ("Fraser Minten",         "BOS", "C",  3, "-",   0.145, 0.154, 0.026),
+    ("Marat Khusnutdinov",    "BOS", "C",  4, "-",   0.136, 0.164, 0.009),
 
-    # ── DALLAS STARS (DAL) ────────────────────────────────────────────────────
-    # Pavelski retired (42 in 2026). Matt Duchene signed DAL (UFA 2023).
-    ("Jason Robertson",       "DAL", "LW", 1, "PP1", 0.38, 0.42, 0.32),
-    ("Roope Hintz",           "DAL", "C",  1, "PP1", 0.30, 0.38, 0.25),
-    ("Miro Heiskanen",        "DAL", "D",  0, "PP1", 0.08, 0.32, 0.22),
-    ("Tyler Seguin",          "DAL", "C",  2, "PP2", 0.20, 0.30, 0.20),
-    ("Matt Duchene",          "DAL", "C",  2, "PP1", 0.20, 0.28, 0.18),
-    ("Mason Marchment",       "DAL", "LW", 2, "PP2", 0.18, 0.22, 0.14),
-    ("Logan Stankoven",       "DAL", "C",  3, "PP2", 0.14, 0.18, 0.10),
-    ("Jamie Benn",            "DAL", "LW", 3, "-",   0.10, 0.14, 0.05),
-    ("Esa Lindell",           "DAL", "D",  0, "PP2", 0.05, 0.18, 0.10),
-    ("Radek Faksa",           "DAL", "C",  4, "-",   0.06, 0.08, 0.03),
-    ("Thomas Harley",         "DAL", "D",  0, "PP1", 0.08, 0.22, 0.16),
+    # ── BUFFALO SABRES (BUF) — E/A1, R1 vs BOS ───────────────────────────────
+    # Peterka traded to UTA; Cozens traded to OTT; McLeod (EDM) & Doan (UTA) in.
+    # Bowen Byram (from COL) bolsters the blue line alongside Dahlin.
+    ("Tage Thompson",         "BUF", "C",  1, "PP1", 0.346, 0.354, 0.207),
+    ("Rasmus Dahlin",         "BUF", "D",  0, "PP1", 0.173, 0.500, 0.200),
+    ("Alex Tuch",             "BUF", "RW", 1, "PP2", 0.293, 0.293, 0.080),
+    ("Jack Quinn",            "BUF", "RW", 2, "PP1", 0.171, 0.264, 0.094),
+    ("Ryan McLeod",           "BUF", "C",  2, "PP2", 0.121, 0.346, 0.060),
+    ("Zach Benson",           "BUF", "LW", 2, "PP2", 0.140, 0.323, 0.054),
+    ("Jason Zucker",          "BUF", "LW", 3, "-",   0.271, 0.237, 0.181),
+    ("Josh Doan",             "BUF", "RW", 3, "PP2", 0.213, 0.230, 0.145),
+    ("Bowen Byram",           "BUF", "D",  0, "PP2", 0.094, 0.264, 0.060),
+    ("Mattias Samuelsson",    "BUF", "D",  0, "-",   0.117, 0.251, 0.000),
+    ("Peyton Krebs",          "BUF", "C",  3, "-",   0.102, 0.230, 0.009),
+    ("Josh Norris",           "BUF", "C",  2, "PP2", 0.207, 0.334, 0.143),
 
-    # ── NEW YORK RANGERS (NYR) ────────────────────────────────────────────────
-    # Vincent Trocheck signed 7yr deal (UFA 2023) — key 2C omission fixed.
-    ("Artemi Panarin",        "NYR", "LW", 1, "PP1", 0.25, 0.58, 0.38),
-    ("Mika Zibanejad",        "NYR", "C",  1, "PP1", 0.25, 0.35, 0.26),
-    ("Chris Kreider",         "NYR", "LW", 2, "PP1", 0.28, 0.22, 0.20),
-    ("Adam Fox",              "NYR", "D",  0, "PP1", 0.10, 0.50, 0.38),
-    ("Vincent Trocheck",      "NYR", "C",  2, "PP2", 0.18, 0.28, 0.20),
-    ("Jacob Trouba",          "NYR", "D",  0, "-",   0.05, 0.15, 0.05),
-    ("K'Andre Miller",        "NYR", "D",  0, "PP2", 0.06, 0.20, 0.12),
-    ("Alexis Lafreniere",     "NYR", "LW", 2, "PP2", 0.20, 0.26, 0.16),
-    ("Kaapo Kakko",           "NYR", "RW", 2, "-",   0.18, 0.20, 0.08),
-    ("Filip Chytil",          "NYR", "C",  3, "-",   0.14, 0.16, 0.06),
-    ("Barclay Goodrow",       "NYR", "C",  3, "-",   0.06, 0.08, 0.03),
-    ("Matt Rempe",            "NYR", "C",  4, "-",   0.06, 0.04, 0.02),
+    # ── MONTREAL CANADIENS (MTL) — E/A3, R1 vs TBL ───────────────────────────
+    # Caufield/Suzuki/Hutson now joined by Dobson (from NYI) and Demidov.
+    # Slafkovsky is a physical franchise presence; Kapanen provides depth.
+    ("Cole Caufield",         "MTL", "RW", 1, "PP1", 0.441, 0.320, 0.251),
+    ("Nick Suzuki",           "MTL", "C",  1, "PP1", 0.248, 0.615, 0.366),
+    ("Lane Hutson",           "MTL", "D",  0, "PP1", 0.102, 0.564, 0.171),
+    ("Juraj Slafkovsky",      "MTL", "LW", 1, "PP2", 0.256, 0.366, 0.239),
+    ("Ivan Demidov",          "MTL", "RW", 2, "PP1", 0.162, 0.366, 0.171),
+    ("Noah Dobson",           "MTL", "D",  0, "PP2", 0.105, 0.306, 0.061),
+    ("Zachary Bolduc",        "MTL", "LW", 3, "-",   0.108, 0.162, 0.054),
+    ("Mike Matheson",         "MTL", "D",  0, "-",   0.063, 0.269, 0.009),
+    ("Oliver Kapanen",        "MTL", "C",  3, "-",   0.188, 0.128, 0.009),
 
-    # ── WASHINGTON CAPITALS (WSH) ─────────────────────────────────────────────
-    # Kuznetsov (KHL stint / contract expired) and Eller (retired) out.
-    # Aliaksei Protas (developing) and Andrew Mangiapane fill depth spots.
-    ("Alex Ovechkin",         "WSH", "LW", 1, "PP1", 0.30, 0.28, 0.28),
-    ("Dylan Strome",          "WSH", "C",  1, "PP1", 0.18, 0.32, 0.22),
-    ("Tom Wilson",            "WSH", "RW", 1, "PP2", 0.22, 0.25, 0.10),
-    ("Connor McMichael",      "WSH", "C",  2, "PP2", 0.18, 0.24, 0.14),
-    ("Aliaksei Protas",       "WSH", "C",  2, "-",   0.14, 0.20, 0.08),
-    ("John Carlson",          "WSH", "D",  0, "PP1", 0.08, 0.28, 0.20),
-    ("Martin Fehervary",      "WSH", "D",  0, "-",   0.04, 0.14, 0.05),
-    ("Andrew Mangiapane",     "WSH", "LW", 2, "PP2", 0.14, 0.18, 0.10),
-    ("Sonny Milano",          "WSH", "LW", 3, "-",   0.10, 0.14, 0.06),
-    ("Nicolas Aube-Kubel",    "WSH", "RW", 3, "-",   0.08, 0.08, 0.03),
-    ("Rasmus Sandin",         "WSH", "D",  0, "PP2", 0.06, 0.20, 0.12),
+    # ── OTTAWA SENATORS (OTT) — E/WC2, R1 vs CAR ────────────────────────────
+    # Cozens (from BUF) joins Stutzle & Tkachuk as a dangerous 1-2-3 punch.
+    # Sanderson leads the PP blue line; Batherson is a consistent 30-goal scorer.
+    ("Tim Stutzle",           "OTT", "C",  1, "PP1", 0.298, 0.429, 0.254),
+    ("Brady Tkachuk",         "OTT", "LW", 1, "PP1", 0.257, 0.432, 0.233),
+    ("Drake Batherson",       "OTT", "RW", 1, "PP1", 0.293, 0.337, 0.266),
+    ("Dylan Cozens",          "OTT", "C",  2, "PP1", 0.239, 0.265, 0.248),
+    ("Jake Sanderson",        "OTT", "D",  0, "PP1", 0.147, 0.418, 0.230),
+    ("Claude Giroux",         "OTT", "RW", 2, "PP2", 0.119, 0.299, 0.111),
+    ("Shane Pinto",           "OTT", "C",  2, "-",   0.223, 0.223, 0.049),
+    ("Ridly Greig",           "OTT", "C",  3, "-",   0.118, 0.200, 0.027),
+    ("Michael Amadio",        "OTT", "RW", 3, "-",   0.130, 0.173, 0.000),
+    ("Fabian Zetterlund",     "OTT", "LW", 3, "PP2", 0.145, 0.136, 0.068),
+    ("Thomas Chabot",         "OTT", "D",  0, "PP2", 0.086, 0.295, 0.086),
+    ("Jordan Spence",         "OTT", "D",  0, "-",   0.067, 0.230, 0.029),
+    ("Artem Zub",             "OTT", "D",  0, "-",   0.043, 0.216, 0.000),
 
-    # ── VANCOUVER CANUCKS (VAN) ───────────────────────────────────────────────
-    # Filip Hronek signed long-term extension with VAN.
-    ("Elias Pettersson",      "VAN", "C",  1, "PP1", 0.28, 0.48, 0.36),
-    ("Quinn Hughes",          "VAN", "D",  0, "PP1", 0.12, 0.52, 0.42),
-    ("Brock Boeser",          "VAN", "RW", 1, "PP1", 0.28, 0.30, 0.25),
-    ("J.T. Miller",           "VAN", "C",  2, "PP2", 0.22, 0.38, 0.25),
-    ("Conor Garland",         "VAN", "RW", 2, "-",   0.18, 0.22, 0.08),
-    ("Filip Hronek",          "VAN", "D",  0, "PP2", 0.08, 0.28, 0.20),
-    ("Anthony Beauvillier",   "VAN", "LW", 3, "-",   0.12, 0.16, 0.06),
-    ("Nils Hoglander",        "VAN", "LW", 3, "-",   0.10, 0.14, 0.06),
-    ("Oliver Ekman-Larsson",  "VAN", "D",  0, "PP2", 0.06, 0.18, 0.12),
-    ("Luke Schenn",           "VAN", "D",  0, "-",   0.03, 0.10, 0.03),
-    ("Teddy Blueger",         "VAN", "C",  4, "-",   0.05, 0.06, 0.02),
-    ("Nikita Zadorov",        "VAN", "D",  0, "-",   0.03, 0.08, 0.02),
+    # ── PHILADELPHIA FLYERS (PHI) — E/M3, R1 vs PIT ──────────────────────────
+    # Zegras acquired from ANA; Michkov is a dynamic young scorer.
+    # Dvorak (from MTL) provides two-way depth down the middle.
+    ("Travis Konecny",        "PHI", "RW", 1, "PP1", 0.245, 0.373, 0.127),
+    ("Trevor Zegras",         "PHI", "C",  1, "PP1", 0.225, 0.354, 0.199),
+    ("Owen Tippett",          "PHI", "RW", 2, "PP2", 0.242, 0.199, 0.060),
+    ("Matvei Michkov",        "PHI", "RW", 2, "PP1", 0.173, 0.268, 0.104),
+    ("Sean Couturier",        "PHI", "C",  2, "-",   0.108, 0.215, 0.009),
+    ("Christian Dvorak",      "PHI", "C",  3, "-",   0.158, 0.289, 0.044),
+    ("Noah Cates",            "PHI", "LW", 3, "-",   0.154, 0.248, 0.077),
+    ("Travis Sanheim",        "PHI", "D",  0, "PP2", 0.095, 0.225, 0.026),
+    ("Jamie Drysdale",        "PHI", "D",  0, "PP1", 0.072, 0.215, 0.081),
 
-    # ── WINNIPEG JETS (WPG) ───────────────────────────────────────────────────
-    # Dubois signed LAK (UFA 2023); Max Domi not re-signed.
-    # Gabriel Vilardi (acquired in Dubois trade) and Nino Niederreiter added.
-    ("Kyle Connor",           "WPG", "LW", 1, "PP1", 0.25, 0.35, 0.26),
-    ("Mark Scheifele",        "WPG", "C",  1, "PP1", 0.22, 0.38, 0.28),
-    ("Josh Morrissey",        "WPG", "D",  0, "PP1", 0.08, 0.32, 0.24),
-    ("Nikolaj Ehlers",        "WPG", "LW", 2, "PP1", 0.22, 0.28, 0.20),
-    ("Gabriel Vilardi",       "WPG", "RW", 2, "PP2", 0.18, 0.22, 0.12),
-    ("Nino Niederreiter",     "WPG", "LW", 2, "-",   0.14, 0.18, 0.08),
-    ("Cole Perfetti",         "WPG", "C",  2, "PP2", 0.16, 0.22, 0.14),
-    ("Adam Lowry",            "WPG", "C",  3, "-",   0.08, 0.12, 0.04),
-    ("Neal Pionk",            "WPG", "D",  0, "PP2", 0.06, 0.22, 0.14),
-    ("Dylan DeMelo",          "WPG", "D",  0, "-",   0.04, 0.14, 0.05),
-    ("Mason Appleton",        "WPG", "RW", 3, "-",   0.08, 0.10, 0.03),
+    # ── PITTSBURGH PENGUINS (PIT) — E/M2, R1 vs PHI ──────────────────────────
+    # Crosby & Malkin still lead; Erik Karlsson (traded from SJS/OTT) anchors PP.
+    # Mantha (38 goals from PIT) is a physical power-forward.
+    ("Sidney Crosby",         "PIT", "C",  1, "PP1", 0.298, 0.463, 0.237),
+    ("Evgeni Malkin",         "PIT", "C",  1, "PP1", 0.237, 0.525, 0.275),
+    ("Erik Karlsson",         "PIT", "D",  0, "PP1", 0.140, 0.476, 0.243),
+    ("Rickard Rakell",        "PIT", "RW", 1, "PP2", 0.280, 0.280, 0.187),
+    ("Bryan Rust",            "PIT", "RW", 2, "PP2", 0.282, 0.350, 0.233),
+    ("Anthony Mantha",        "PIT", "RW", 2, "PP1", 0.285, 0.268, 0.112),
+    ("Kris Letang",           "PIT", "D",  0, "PP2", 0.028, 0.293, 0.095),
+    ("Egor Chinakhov",        "PIT", "RW", 3, "PP2", 0.204, 0.204, 0.058),
+    ("Thomas Novak",          "PIT", "C",  3, "-",   0.137, 0.222, 0.060),
+    ("Ben Kindel",            "PIT", "C",  3, "-",   0.154, 0.164, 0.091),
+    ("Justin Brazeau",        "PIT", "RW", 4, "-",   0.186, 0.186, 0.055),
+    ("Connor Dewar",          "PIT", "C",  4, "-",   0.126, 0.143, 0.000),
+    ("Ryan Shea",             "PIT", "D",  0, "PP2", 0.053, 0.254, 0.000),
 
-    # ── NEW JERSEY DEVILS (NJD) ───────────────────────────────────────────────
-    # Palat's deal expired; Dawson Mercer and Luke Hughes (Jack's brother) in.
-    ("Jack Hughes",           "NJD", "C",  1, "PP1", 0.30, 0.48, 0.35),
-    ("Jesper Bratt",          "NJD", "LW", 1, "PP1", 0.22, 0.38, 0.28),
-    ("Timo Meier",            "NJD", "LW", 1, "PP1", 0.26, 0.30, 0.20),
-    ("Nico Hischier",         "NJD", "C",  2, "PP2", 0.22, 0.32, 0.22),
-    ("Dougie Hamilton",       "NJD", "D",  0, "PP1", 0.15, 0.40, 0.30),
-    ("Dawson Mercer",         "NJD", "C",  2, "-",   0.18, 0.22, 0.12),
-    ("Luke Hughes",           "NJD", "D",  0, "PP2", 0.08, 0.28, 0.20),
-    ("Tyler Toffoli",         "NJD", "RW", 2, "PP2", 0.20, 0.22, 0.16),
-    ("Jonas Siegenthaler",    "NJD", "D",  0, "-",   0.03, 0.12, 0.04),
-    ("Ryan Graves",           "NJD", "D",  0, "-",   0.03, 0.10, 0.03),
-    ("Alexander Holtz",       "NJD", "RW", 3, "PP2", 0.14, 0.16, 0.10),
-    ("Erik Haula",            "NJD", "C",  3, "-",   0.08, 0.14, 0.05),
+    # ── MINNESOTA WILD (MIN) — W/C3, R1 vs DAL ───────────────────────────────
+    # Quinn Hughes (acquired from VAN) is now the PP quarterback.
+    # Kaprizov + Boldy form arguably the best left-side duo in the West.
+    ("Kirill Kaprizov",       "MIN", "LW", 1, "PP1", 0.404, 0.394, 0.287),
+    ("Matt Boldy",            "MIN", "LW", 1, "PP1", 0.387, 0.396, 0.276),
+    ("Quinn Hughes",          "MIN", "D",  0, "PP1", 0.066, 0.653, 0.321),
+    ("Mats Zuccarello",       "MIN", "RW", 1, "PP2", 0.178, 0.463, 0.249),
+    ("Joel Eriksson Ek",      "MIN", "C",  2, "PP2", 0.190, 0.320, 0.160),
+    ("Brock Faber",           "MIN", "D",  0, "PP2", 0.131, 0.315, 0.097),
+    ("Marcus Johansson",      "MIN", "LW", 2, "-",   0.140, 0.317, 0.084),
+    ("Vladimir Tarasenko",    "MIN", "RW", 3, "PP2", 0.215, 0.224, 0.121),
+    ("Ryan Hartman",          "MIN", "RW", 3, "-",   0.212, 0.184, 0.064),
+    ("Bobby Brink",           "MIN", "RW", 3, "-",   0.154, 0.154, 0.072),
 
-    # ── LOS ANGELES KINGS (LAK) ───────────────────────────────────────────────
-    # Quinton Byfield (franchise C, signed long-term) — major prior omission.
-    # Pierre-Luc Dubois signed 8yr deal (UFA 2023).
-    # Jake DeBrusk signed 6yr deal (UFA 2023).
-    # Kopitar moves to L3 role; Arvidsson inactive (chronic injury).
-    ("Quinton Byfield",       "LAK", "C",  1, "PP1", 0.28, 0.42, 0.28),
-    ("Kevin Fiala",           "LAK", "LW", 1, "PP1", 0.22, 0.30, 0.22),
-    ("Adrian Kempe",          "LAK", "LW", 2, "PP1", 0.22, 0.28, 0.20),
-    ("Pierre-Luc Dubois",     "LAK", "C",  2, "PP2", 0.18, 0.28, 0.16),
-    ("Jake DeBrusk",          "LAK", "LW", 2, "PP2", 0.20, 0.22, 0.14),
-    ("Anze Kopitar",          "LAK", "C",  3, "PP2", 0.10, 0.26, 0.15),
-    ("Drew Doughty",          "LAK", "D",  0, "PP1", 0.06, 0.26, 0.18),
-    ("Sean Durzi",            "LAK", "D",  0, "PP2", 0.08, 0.22, 0.14),
-    ("Phillip Danault",       "LAK", "C",  3, "-",   0.10, 0.18, 0.06),
-    ("Mikey Anderson",        "LAK", "D",  0, "-",   0.03, 0.10, 0.03),
-    ("Alex Laferriere",       "LAK", "LW", 3, "-",   0.10, 0.12, 0.05),
-    ("Carl Grundstrom",       "LAK", "RW", 3, "-",   0.08, 0.10, 0.04),
-    ("Tobias Bjornfot",       "LAK", "D",  0, "-",   0.04, 0.12, 0.04),
+    # ── ANAHEIM DUCKS (ANA) — W/P3, R1 vs EDM ────────────────────────────────
+    # Kreider, Trouba, John Carlson acquired (all NYR/WSH trades).
+    # Gauthier leads a surprising offence; Sennecke is a top prospect.
+    ("Cutter Gauthier",       "ANA", "LW", 1, "PP1", 0.373, 0.261, 0.177),
+    ("Leo Carlsson",          "ANA", "C",  1, "PP1", 0.294, 0.375, 0.172),
+    ("Beckett Sennecke",      "ANA", "RW", 2, "PP1", 0.199, 0.320, 0.112),
+    ("Troy Terry",            "ANA", "RW", 2, "PP2", 0.210, 0.443, 0.128),
+    ("Mason McTavish",        "ANA", "C",  2, "PP2", 0.161, 0.218, 0.104),
+    ("Chris Kreider",         "ANA", "LW", 2, "PP1", 0.208, 0.265, 0.161),
+    ("John Carlson",          "ANA", "D",  0, "PP1", 0.140, 0.440, 0.140),
+    ("Jackson LaCombe",       "ANA", "D",  0, "PP2", 0.078, 0.415, 0.147),
+    ("Mikael Granlund",       "ANA", "C",  3, "-",   0.233, 0.233, 0.135),
+    ("Ryan Poehling",         "ANA", "C",  3, "-",   0.104, 0.227, 0.009),
+    ("Jacob Trouba",          "ANA", "D",  0, "-",   0.088, 0.210, 0.009),
+    ("Alex Killorn",          "ANA", "LW", 3, "-",   0.121, 0.156, 0.043),
 
-    # ── NASHVILLE PREDATORS (NSH) ─────────────────────────────────────────────
-    # Jonathan Marchessault signed 4yr deal (UFA 2023) — key addition.
-    # Stamkos signed 4yr deal (UFA 2024). Juuse Saros (G) filtered in model.
-    ("Steven Stamkos",        "NSH", "C",  1, "PP1", 0.25, 0.38, 0.30),
-    ("Jonathan Marchessault", "NSH", "LW", 1, "PP1", 0.28, 0.32, 0.22),
-    ("Roman Josi",            "NSH", "D",  0, "PP1", 0.10, 0.38, 0.28),
-    ("Ryan O'Reilly",         "NSH", "C",  2, "PP2", 0.16, 0.28, 0.18),
-    ("Philip Tomasino",       "NSH", "C",  2, "PP1", 0.18, 0.24, 0.16),
-    ("Eeli Tolvanen",         "NSH", "LW", 2, "PP2", 0.20, 0.22, 0.15),
-    ("Zachary L'Heureux",     "NSH", "LW", 3, "-",   0.10, 0.10, 0.04),
-    ("Colton Sissons",        "NSH", "C",  3, "-",   0.06, 0.10, 0.03),
-    ("Dante Fabbro",          "NSH", "D",  0, "PP2", 0.06, 0.18, 0.10),
-    ("Michael McCarron",      "NSH", "C",  3, "-",   0.06, 0.08, 0.03),
-    ("Juuse Saros",           "NSH", "G",  0, "-",   0.00, 0.00, 0.00),
-    # Note: Juuse Saros is listed for roster completeness; goalies are
-    # automatically excluded from the draft model in build_player_df().
+    # ── UTAH MAMMOTH (UTA) — W/WC1, R1 vs VGK ───────────────────────────────
+    # Peterka acquired from BUF; Doan traded to BUF; Carcone fills depth.
+    # Sergachev is the PP1 quarterback; Keller/Guenther are elite forwards.
+    ("Clayton Keller",        "UTA", "C",  1, "PP1", 0.225, 0.519, 0.233),
+    ("Dylan Guenther",        "UTA", "RW", 1, "PP1", 0.354, 0.293, 0.213),
+    ("Nick Schmaltz",         "UTA", "C",  1, "PP2", 0.285, 0.354, 0.173),
+    ("Logan Cooley",          "UTA", "C",  2, "PP2", 0.317, 0.251, 0.132),
+    ("JJ Peterka",            "UTA", "RW", 2, "PP1", 0.216, 0.181, 0.043),
+    ("Mikhail Sergachev",     "UTA", "D",  0, "PP1", 0.091, 0.445, 0.236),
+    ("Lawson Crouse",         "UTA", "LW", 2, "-",   0.201, 0.175, 0.009),
+    ("Michael Carcone",       "UTA", "LW", 3, "-",   0.135, 0.135, 0.036),
+    ("John Marino",           "UTA", "D",  0, "-",   0.036, 0.275, 0.000),
 ]
 
 # ═══════════════════════════════════════════════════════════════════════════════
