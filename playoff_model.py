@@ -98,101 +98,103 @@ OT_RATE = 0.10
 # so_rate   – fraction of games the team's goalie posts a shutout
 #
 TEAMS: dict[str, dict] = {
-    "EDM": dict(
-        name="Edmonton Oilers",      conf="W", seed=1,
-        cup_prob=0.15,
-        r1_win=0.65, r2_win=0.60, r3_win=0.55, r4_win=0.50,
-        gpg_for=3.45, so_rate=0.06,
-    ),
-    "COL": dict(
-        name="Colorado Avalanche",   conf="W", seed=2,
-        cup_prob=0.13,
-        r1_win=0.62, r2_win=0.58, r3_win=0.52, r4_win=0.48,
-        gpg_for=3.50, so_rate=0.05,
-    ),
-    "FLA": dict(
-        name="Florida Panthers",     conf="E", seed=1,
-        cup_prob=0.12,
+    # ── EASTERN CONFERENCE (seeds in conference-standing order) ─────────────────
+    "CAR": dict(
+        name="Carolina Hurricanes",  conf="E", seed=1,
+        cup_prob=0.10,
         r1_win=0.62, r2_win=0.57, r3_win=0.52, r4_win=0.48,
-        gpg_for=3.20, so_rate=0.08,
+        gpg_for=3.10, so_rate=0.10,
+    ),
+    "PIT": dict(
+        name="Pittsburgh Penguins",  conf="E", seed=2,
+        cup_prob=0.04,
+        r1_win=0.55, r2_win=0.50, r3_win=0.46, r4_win=0.42,
+        gpg_for=2.90, so_rate=0.07,
+    ),
+    "PHI": dict(
+        name="Philadelphia Flyers",  conf="E", seed=3,
+        cup_prob=0.03,
+        r1_win=0.52, r2_win=0.48, r3_win=0.44, r4_win=0.40,
+        gpg_for=2.95, so_rate=0.07,
+    ),
+    "BUF": dict(
+        name="Buffalo Sabres",       conf="E", seed=4,
+        cup_prob=0.04,
+        r1_win=0.52, r2_win=0.50, r3_win=0.46, r4_win=0.42,
+        gpg_for=3.10, so_rate=0.06,
+    ),
+    "MTL": dict(
+        name="Montreal Canadiens",   conf="E", seed=5,
+        cup_prob=0.02,
+        r1_win=0.45, r2_win=0.44, r3_win=0.40, r4_win=0.36,
+        gpg_for=2.85, so_rate=0.07,
     ),
     "TBL": dict(
-        name="Tampa Bay Lightning",  conf="E", seed=2,
-        cup_prob=0.10,
-        r1_win=0.60, r2_win=0.55, r3_win=0.50, r4_win=0.45,
-        gpg_for=3.30, so_rate=0.07,
-    ),
-    "VGK": dict(
-        name="Vegas Golden Knights", conf="W", seed=3,
-        cup_prob=0.08,
-        r1_win=0.55, r2_win=0.52, r3_win=0.48, r4_win=0.44,
-        gpg_for=3.10, so_rate=0.09,
-    ),
-    "OTT": dict(
-        name="Ottawa Senators",      conf="E", seed=3,
-        cup_prob=0.06,
-        r1_win=0.52, r2_win=0.50, r3_win=0.46, r4_win=0.42,
-        gpg_for=3.20, so_rate=0.07,
-    ),
-    "CAR": dict(
-        name="Carolina Hurricanes",  conf="E", seed=4,
+        name="Tampa Bay Lightning",  conf="E", seed=6,
         cup_prob=0.07,
-        r1_win=0.55, r2_win=0.50, r3_win=0.46, r4_win=0.42,
-        gpg_for=3.05, so_rate=0.10,
+        r1_win=0.58, r2_win=0.53, r3_win=0.48, r4_win=0.44,
+        gpg_for=3.25, so_rate=0.08,
     ),
     "BOS": dict(
-        name="Boston Bruins",        conf="E", seed=5,
+        name="Boston Bruins",        conf="E", seed=7,
         cup_prob=0.06,
         r1_win=0.52, r2_win=0.50, r3_win=0.46, r4_win=0.42,
         gpg_for=2.95, so_rate=0.08,
     ),
+    "OTT": dict(
+        name="Ottawa Senators",      conf="E", seed=8,
+        cup_prob=0.04,
+        r1_win=0.50, r2_win=0.48, r3_win=0.44, r4_win=0.40,
+        gpg_for=3.15, so_rate=0.07,
+    ),
+    # ── WESTERN CONFERENCE (seeds in conference-standing order) ─────────────────
+    "COL": dict(
+        name="Colorado Avalanche",   conf="W", seed=1,
+        cup_prob=0.16,
+        r1_win=0.68, r2_win=0.62, r3_win=0.56, r4_win=0.52,
+        gpg_for=3.50, so_rate=0.05,
+    ),
     "DAL": dict(
-        name="Dallas Stars",         conf="W", seed=4,
-        cup_prob=0.05,
-        r1_win=0.52, r2_win=0.48, r3_win=0.44, r4_win=0.40,
+        name="Dallas Stars",         conf="W", seed=2,
+        cup_prob=0.07,
+        r1_win=0.58, r2_win=0.53, r3_win=0.48, r4_win=0.44,
         gpg_for=3.00, so_rate=0.09,
     ),
-    "NYR": dict(
-        name="New York Rangers",     conf="E", seed=6,
+    "MIN": dict(
+        name="Minnesota Wild",       conf="W", seed=3,
         cup_prob=0.05,
-        r1_win=0.50, r2_win=0.48, r3_win=0.44, r4_win=0.40,
-        gpg_for=3.10, so_rate=0.07,
+        r1_win=0.55, r2_win=0.50, r3_win=0.46, r4_win=0.42,
+        gpg_for=3.05, so_rate=0.07,
     ),
-    "WSH": dict(
-        name="Washington Capitals",  conf="E", seed=7,
-        cup_prob=0.04,
-        r1_win=0.48, r2_win=0.46, r3_win=0.42, r4_win=0.38,
+    "VGK": dict(
+        name="Vegas Golden Knights", conf="W", seed=4,
+        cup_prob=0.09,
+        r1_win=0.58, r2_win=0.53, r3_win=0.48, r4_win=0.44,
+        gpg_for=3.10, so_rate=0.09,
+    ),
+    "EDM": dict(
+        name="Edmonton Oilers",      conf="W", seed=5,
+        cup_prob=0.13,
+        r1_win=0.62, r2_win=0.57, r3_win=0.52, r4_win=0.48,
+        gpg_for=3.45, so_rate=0.06,
+    ),
+    "ANA": dict(
+        name="Anaheim Ducks",        conf="W", seed=6,
+        cup_prob=0.03,
+        r1_win=0.45, r2_win=0.44, r3_win=0.40, r4_win=0.36,
         gpg_for=2.90, so_rate=0.07,
     ),
-    "VAN": dict(
-        name="Vancouver Canucks",    conf="W", seed=5,
-        cup_prob=0.04,
+    "UTA": dict(
+        name="Utah Hockey Club",     conf="W", seed=7,
+        cup_prob=0.03,
         r1_win=0.48, r2_win=0.46, r3_win=0.42, r4_win=0.38,
         gpg_for=2.95, so_rate=0.07,
     ),
-    "WPG": dict(
-        name="Winnipeg Jets",        conf="W", seed=6,
-        cup_prob=0.03,
-        r1_win=0.45, r2_win=0.44, r3_win=0.40, r4_win=0.36,
-        gpg_for=3.00, so_rate=0.08,
-    ),
-    "NJD": dict(
-        name="New Jersey Devils",    conf="E", seed=8,
-        cup_prob=0.03,
-        r1_win=0.42, r2_win=0.42, r3_win=0.38, r4_win=0.35,
-        gpg_for=2.85, so_rate=0.08,
-    ),
     "LAK": dict(
-        name="Los Angeles Kings",    conf="W", seed=7,
-        cup_prob=0.03,
-        r1_win=0.42, r2_win=0.42, r3_win=0.38, r4_win=0.35,
-        gpg_for=2.80, so_rate=0.10,
-    ),
-    "NSH": dict(
-        name="Nashville Predators",  conf="W", seed=8,
-        cup_prob=0.03,
-        r1_win=0.40, r2_win=0.40, r3_win=0.36, r4_win=0.32,
-        gpg_for=2.85, so_rate=0.09,
+        name="Los Angeles Kings",    conf="W", seed=8,
+        cup_prob=0.04,
+        r1_win=0.45, r2_win=0.44, r3_win=0.40, r4_win=0.36,
+        gpg_for=2.82, so_rate=0.10,
     ),
 }
 
