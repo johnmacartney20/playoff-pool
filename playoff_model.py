@@ -845,6 +845,325 @@ def print_report(df: pd.DataFrame, write_csv: bool = False) -> None:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# INTERACTIVE DRAFT MANAGER
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Target roster composition (11 spots: 3C 2LW 2RW 2D 1 team 1 flex/util)
+_POSITION_TARGETS: dict[str, int] = {"C": 3, "LW": 2, "RW": 2, "D": 2}
+_TOTAL_SKATER_SPOTS = sum(_POSITION_TARGETS.values())   # 9 skater slots
+
+# Minimum draft score threshold to trigger a PP1-centre scarcity warning
+_PP1C_SCARCITY_THRESHOLD = 12.0
+
+
+def compute_my_picks(
+    pick_pos: int,
+    num_teams: int = NUM_FANTASY_TEAMS,
+    rounds: int = ROSTER_SIZE,
+) -> list[int]:
+    """
+    Return the list of overall pick numbers belonging to position *pick_pos*
+    (1-indexed) in a snake draft with *num_teams* teams and *rounds* rounds.
+
+    Round 1 runs picks 1 … num_teams (left to right).
+    Round 2 reverses: picks num_teams+1 … 2*num_teams (right to left).
+    And so on.
+    """
+    my_picks: list[int] = []
+    for rnd in range(rounds):
+        if rnd % 2 == 0:
+            # odd round (0-indexed even): left-to-right
+            overall = rnd * num_teams + pick_pos
+        else:
+            # even round (0-indexed odd): right-to-left
+            overall = rnd * num_teams + (num_teams - pick_pos + 1)
+        my_picks.append(overall)
+    return my_picks
+
+
+def positional_need(roster: list[dict]) -> dict[str, int]:
+    """
+    Given the current roster (list of player dicts with a 'pos' key),
+    return how many more players are still needed at each position to hit
+    the target composition.  Negative values mean the target is already met.
+    """
+    counts: dict[str, int] = {pos: 0 for pos in _POSITION_TARGETS}
+    for p in roster:
+        pos = p.get("pos", "")
+        if pos in counts:
+            counts[pos] += 1
+    return {pos: _POSITION_TARGETS[pos] - counts[pos] for pos in _POSITION_TARGETS}
+
+
+def vnba_score(
+    player_ds: float,
+    available_df: pd.DataFrame,
+    picks_until_mine: int,
+) -> float:
+    """
+    Value over Next-Best-Available (VNBA).
+
+    Returns the draft-score advantage of taking *player_ds* now versus the
+    best player likely still available when my next pick arrives
+    (*picks_until_mine* picks from now).
+
+    We approximate "still available" as the player ranked at position
+    *picks_until_mine + 1* in the current available board.
+    """
+    if available_df.empty:
+        return 0.0
+    idx = min(picks_until_mine, len(available_df) - 1)
+    next_best = available_df.iloc[idx]["draft_score"]
+    return round(player_ds - next_best, 2)
+
+
+def _print_board(available_df: pd.DataFrame, my_picks: list[int], overall_pick: int) -> None:
+    """Print the current available-player board."""
+    cols = ["player", "team", "pos", "pp_unit", "ppg_model", "egp", "draft_score"]
+    print(f"\n{'─'*72}")
+    print(f"  AVAILABLE BOARD  (overall pick #{overall_pick} — {len(available_df)} players remaining)")
+    print(f"{'─'*72}")
+    display = available_df[cols].head(40).copy()
+    display.index = range(1, len(display) + 1)
+    display.index.name = "avail"
+    print(display.to_string())
+    upcoming = [p for p in my_picks if p >= overall_pick][:3]
+    print(f"\n  Your next picks: {upcoming}")
+    print(f"{'─'*72}\n")
+
+
+def _print_roster(roster: list[dict], my_picks: list[int], overall_pick: int) -> None:
+    """Print your current roster with projected total draft score."""
+    print(f"\n{'─'*72}")
+    print("  YOUR ROSTER")
+    print(f"{'─'*72}")
+    if not roster:
+        print("  (no picks yet)")
+    else:
+        for i, p in enumerate(roster, 1):
+            print(
+                f"  {i:>2}. {p['player']:<28} {p['team']}  {p['pos']:<2}  "
+                f"PP={p['pp_unit']:<3}  DS={p['draft_score']:.2f}"
+            )
+        total_ds = sum(p["draft_score"] for p in roster)
+        print(f"\n  Projected total draft score: {total_ds:.2f}")
+    picks_left = [p for p in my_picks if p >= overall_pick]
+    print(f"  Picks used: {len(roster)}  |  Picks remaining: {len(picks_left)}")
+    need = positional_need(roster)
+    filled = {pos: _POSITION_TARGETS[pos] - n for pos, n in need.items()}
+    print(
+        "  Position fill: "
+        + "  ".join(f"{pos} {filled[pos]}/{_POSITION_TARGETS[pos]}" for pos in _POSITION_TARGETS)
+    )
+    print(f"{'─'*72}\n")
+
+
+def _print_my_pick_advice(
+    available_df: pd.DataFrame,
+    roster: list[dict],
+    my_picks: list[int],
+    overall_pick: int,
+) -> None:
+    """Print targeted advice when it's your pick."""
+    picks_until_next = 0
+    future = [p for p in my_picks if p > overall_pick]
+    if future:
+        picks_until_next = future[0] - overall_pick  # picks between now and your next turn
+
+    print(f"\n{'═'*72}")
+    print(f"  *** YOUR PICK (#{overall_pick}) ***")
+    print(f"{'═'*72}")
+
+    # ── Best available overall (top 5) ────────────────────────────────────────
+    top5 = available_df.head(5).copy()
+    print("\n  TOP 5 BEST AVAILABLE:")
+    for i, (_, row) in enumerate(top5.iterrows(), 1):
+        vnba = vnba_score(row["draft_score"], available_df.iloc[1:], picks_until_next - 1)
+        urgency = f"  [VNBA +{vnba:.1f}]" if vnba > 0 else f"  [VNBA {vnba:.1f}]"
+        print(
+            f"  {i}. {row['player']:<28} {row['team']}  {row['pos']:<2}  "
+            f"PP={row['pp_unit']:<3}  DS={row['draft_score']:.2f}{urgency}"
+        )
+
+    # ── Positional need ───────────────────────────────────────────────────────
+    need = positional_need(roster)
+    needy_positions = [pos for pos, n in need.items() if n > 0]
+    if needy_positions:
+        print(f"\n  POSITIONAL NEEDS ({', '.join(needy_positions)} still wanted):")
+        for pos in needy_positions:
+            pos_avail = available_df[available_df["pos"] == pos].head(3)
+            for _, row in pos_avail.iterrows():
+                print(
+                    f"    {row['player']:<28} {row['team']}  "
+                    f"PP={row['pp_unit']:<3}  DS={row['draft_score']:.2f}"
+                )
+
+    # ── Stack opportunity ─────────────────────────────────────────────────────
+    if roster:
+        team_counts: dict[str, int] = {}
+        for p in roster:
+            team_counts[p["team"]] = team_counts.get(p["team"], 0) + 1
+        partial_stacks = {t: c for t, c in team_counts.items() if 1 <= c <= 2}
+        if partial_stacks:
+            print("\n  STACK OPPORTUNITIES (teammates still on board):")
+            for team_code, owned in partial_stacks.items():
+                teammates = available_df[available_df["team"] == team_code].head(3)
+                if not teammates.empty:
+                    print(
+                        f"    {TEAMS[team_code]['name']} — you own {owned} "
+                        f"player(s); available:"
+                    )
+                    for _, row in teammates.iterrows():
+                        print(
+                            f"      {row['player']:<28}  "
+                            f"PP={row['pp_unit']:<3}  DS={row['draft_score']:.2f}"
+                        )
+
+    # ── PP1-centre scarcity warning ───────────────────────────────────────────
+    pp1_centers = available_df[
+        (available_df["pos"] == "C") & (available_df["pp_unit"] == "PP1")
+        & (available_df["draft_score"] >= _PP1C_SCARCITY_THRESHOLD)
+    ]
+    if pp1_centers.empty:
+        print(
+            f"\n  ⚠  SCARCITY: No PP1 centers above DS {_PP1C_SCARCITY_THRESHOLD:.0f} remain. "
+            "Consider pivoting to PP1 RW or a top-D."
+        )
+
+    print(f"\n{'═'*72}\n")
+
+
+def _fuzzy_match(name_input: str, available_df: pd.DataFrame) -> Optional[str]:
+    """
+    Return the exact player name from *available_df* that best matches
+    *name_input* (case-insensitive substring match).  Returns None if no match.
+    """
+    needle = name_input.strip().lower()
+    candidates = available_df["player"].tolist()
+    # Exact (case-insensitive)
+    for c in candidates:
+        if c.lower() == needle:
+            return c
+    # Substring
+    matches = [c for c in candidates if needle in c.lower()]
+    if len(matches) == 1:
+        return matches[0]
+    if len(matches) > 1:
+        print(f"  Ambiguous: {matches}")
+    return None
+
+
+def run_draft_session(
+    df: pd.DataFrame,
+    my_pick_pos: int,
+    pre_taken: list[str],
+    num_teams: int = NUM_FANTASY_TEAMS,
+    rounds: int = ROSTER_SIZE,
+) -> None:
+    """
+    Run an interactive draft session.
+
+    *df*           — full player rankings (build_player_df output)
+    *my_pick_pos*  — your draft position (1-indexed)
+    *pre_taken*    — player names already taken before the session starts
+    *num_teams*    — size of the league
+    *rounds*       — number of draft rounds (= roster size)
+    """
+    my_picks = compute_my_picks(my_pick_pos, num_teams, rounds)
+    available_df = df.copy()
+    roster: list[dict] = []
+    overall_pick = 1
+
+    print(f"\n{'═'*72}")
+    print(f"  DRAFT SESSION — pick position #{my_pick_pos}")
+    print(f"  Your picks (overall): {my_picks}")
+    print(f"{'═'*72}")
+    print("  Commands:")
+    print("    <player name>  — mark player as taken (by anyone)")
+    print("    mine <name>    — mark player as your pick")
+    print("    board          — show available board")
+    print("    roster         — show your current roster")
+    print("    quit           — exit and save draft_results.csv\n")
+
+    # Pre-seed taken players
+    for taken_name in pre_taken:
+        match = _fuzzy_match(taken_name, available_df)
+        if match:
+            available_df = available_df[available_df["player"] != match].reset_index(drop=True)
+            overall_pick += 1
+            print(f"  Pre-seeded as taken: {match}")
+        else:
+            print(f"  ⚠  Could not find pre-taken player: '{taken_name}'")
+
+    while overall_pick <= num_teams * rounds:
+        is_my_pick = overall_pick in my_picks
+
+        if is_my_pick:
+            _print_my_pick_advice(available_df, roster, my_picks, overall_pick)
+            prompt = f"  Pick #{overall_pick} is YOURS — enter player name (or command): "
+        else:
+            prompt = f"  Pick #{overall_pick}: enter player taken (or command): "
+
+        try:
+            raw = input(prompt).strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\n  Interrupted. Saving results…")
+            break
+
+        if not raw:
+            continue
+
+        cmd = raw.lower()
+
+        if cmd == "quit":
+            break
+        if cmd == "board":
+            _print_board(available_df, my_picks, overall_pick)
+            continue
+        if cmd == "roster":
+            _print_roster(roster, my_picks, overall_pick)
+            continue
+
+        # Detect "mine <name>" shorthand
+        is_mine_cmd = cmd.startswith("mine ")
+        player_input = raw[5:].strip() if is_mine_cmd else raw
+
+        match = _fuzzy_match(player_input, available_df)
+        if match is None:
+            print(f"  ⚠  Player not found on board: '{player_input}'  (try partial name)")
+            continue
+
+        # Remove from available board
+        player_row = available_df[available_df["player"] == match].iloc[0].to_dict()
+        available_df = available_df[available_df["player"] != match].reset_index(drop=True)
+
+        if is_mine_cmd or is_my_pick:
+            roster.append(player_row)
+            print(f"  ✓ Added to YOUR roster: {match}  (DS={player_row['draft_score']:.2f})")
+            _print_roster(roster, my_picks, overall_pick + 1)
+        else:
+            print(f"  ✗ {match} taken (pick #{overall_pick})")
+
+        overall_pick += 1
+
+        # Guard: if all roster spots are filled, stop
+        if len(roster) >= rounds:
+            print("\n  Your roster is full!")
+            break
+
+    # ── Session summary ───────────────────────────────────────────────────────
+    print(f"\n{'═'*72}")
+    print("  DRAFT COMPLETE")
+    print(f"{'═'*72}")
+    _print_roster(roster, my_picks, overall_pick)
+
+    out_path = "draft_results.csv"
+    if roster:
+        pd.DataFrame(roster).to_csv(out_path, index=False)
+        print(f"  Results saved to {out_path}\n")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # MAIN
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -854,12 +1173,35 @@ def main() -> None:
     )
     parser.add_argument(
         "--csv", action="store_true",
-        help="Write full rankings to rankings.csv in addition to stdout"
+        help="Write full rankings to rankings.csv in addition to stdout",
+    )
+    parser.add_argument(
+        "--draft", action="store_true",
+        help="Launch interactive draft manager",
+    )
+    parser.add_argument(
+        "--pick", type=int, default=1, metavar="N",
+        help="Your draft position (1-indexed) in the snake, e.g. --pick 7",
+    )
+    parser.add_argument(
+        "--taken", action="append", default=[], metavar="NAME",
+        help="Pre-seed a player as already taken (repeatable); "
+             'e.g. --taken "Connor McDavid" --taken "Nathan MacKinnon"',
     )
     args = parser.parse_args()
 
     df = build_player_df()
-    print_report(df, write_csv=args.csv)
+
+    if args.draft:
+        if not (1 <= args.pick <= NUM_FANTASY_TEAMS):
+            print(
+                f"Error: --pick must be between 1 and {NUM_FANTASY_TEAMS}.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        run_draft_session(df, my_pick_pos=args.pick, pre_taken=args.taken)
+    else:
+        print_report(df, write_csv=args.csv)
 
 
 if __name__ == "__main__":
