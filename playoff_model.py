@@ -1020,13 +1020,13 @@ def _print_my_pick_advice(
                         )
 
     # ── PP1-centre scarcity warning ───────────────────────────────────────────
-    pp1_centres = available_df[
+    pp1_centers = available_df[
         (available_df["pos"] == "C") & (available_df["pp_unit"] == "PP1")
         & (available_df["draft_score"] >= _PP1C_SCARCITY_THRESHOLD)
     ]
-    if pp1_centres.empty:
+    if pp1_centers.empty:
         print(
-            f"\n  ⚠  SCARCITY: No PP1 centres above DS {_PP1C_SCARCITY_THRESHOLD:.0f} remain. "
+            f"\n  ⚠  SCARCITY: No PP1 centers above DS {_PP1C_SCARCITY_THRESHOLD:.0f} remain. "
             "Consider pivoting to PP1 RW or a top-D."
         )
 
